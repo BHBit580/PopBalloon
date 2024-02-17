@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using PlayFab;
+using PlayFab.ClientModels;
 
 public class SubmitScore : MonoBehaviour
 {
@@ -8,13 +10,40 @@ public class SubmitScore : MonoBehaviour
     
     public void OnSubmitScore()
     {
-        if (inputName.GetPlayerName() == "")
+        if (string.IsNullOrEmpty(inputName.GetPlayerName())) 
         {
             Debug.Log("No name entered!");
             return;
         }
-        
-        Debug.Log(inputName.GetPlayerName());
-        Debug.Log(playerScore.data);
+     
+        SendLeaderboard(playerScore.data);
     }
+    
+    private void SendLeaderboard(int score)
+    {
+        var request = new UpdatePlayerStatisticsRequest
+        {
+            Statistics = new List<StatisticUpdate>
+            {
+                new StatisticUpdate
+                {
+                    StatisticName = "PlayerHighScore",
+                    Value = score
+                }
+            }
+        };
+        PlayFabClientAPI.UpdatePlayerStatistics(request, OnLeaderboardUpdate, OnFailure);
+    }
+    
+    void OnLeaderboardUpdate(UpdatePlayerStatisticsResult result)
+    {
+        PlayfabManager.Instance.GetLeaderboard();
+        Debug.Log("Successful leaderboard sent!");
+    }
+    
+    void OnFailure(PlayFabError error)
+    {
+        Debug.LogWarning("Error: " + error.GenerateErrorReport());
+    }
+
 }

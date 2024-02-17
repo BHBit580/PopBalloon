@@ -337,14 +337,13 @@ GameObject:
   - component: {fileID: 274242552}
   - component: {fileID: 274242551}
   - component: {fileID: 274242550}
-  - component: {fileID: 274242553}
   m_Layer: 5
   m_Name: EnterName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &274242549
 RectTransform:
   m_ObjectHideFlags: 0
@@ -427,10 +426,10 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 274242553}
+      - m_Target: {fileID: 939345181}
         m_TargetAssemblyTypeName: InputName, Assembly-CSharp
         m_MethodName: OnEnteringTheName
-        m_Mode: 5
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -513,18 +512,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 274242548}
   m_CullTransparentMesh: 1
---- !u!114 &274242553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 274242548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c2c4ad1bd5129641a9864a1d55c671d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -684,7 +671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d7122bb5ea9b1468344fb6bb7618c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTime: 2
+  maxTime: 5
   gameOver: {fileID: 11400000, guid: 480e3eb1ff120f94c9bd60960f69b2bd, type: 2}
 --- !u!114 &595591251
 MonoBehaviour:
@@ -859,13 +846,14 @@ GameObject:
   - component: {fileID: 877807803}
   - component: {fileID: 877807802}
   - component: {fileID: 877807801}
+  - component: {fileID: 877807804}
   m_Layer: 5
   m_Name: SubmitScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &877807800
 RectTransform:
   m_ObjectHideFlags: 0
@@ -929,7 +917,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 877807802}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 877807804}
+        m_TargetAssemblyTypeName: SubmitScore, Assembly-CSharp
+        m_MethodName: OnSubmitScore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &877807802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -968,6 +968,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 877807799}
   m_CullTransparentMesh: 1
+--- !u!114 &877807804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877807799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d4a0f17e2f40247a67957187117b0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputName: {fileID: 939345181}
+  playerScore: {fileID: 11400000, guid: e3de8bb8a496b3648b9f98c721933533, type: 2}
 --- !u!1 &884244127
 GameObject:
   m_ObjectHideFlags: 0
@@ -1180,6 +1194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 939345179}
   - component: {fileID: 939345180}
+  - component: {fileID: 939345181}
   m_Layer: 5
   m_Name: GameOverUI
   m_TagString: Untagged
@@ -1222,6 +1237,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOver: {fileID: 11400000, guid: 480e3eb1ff120f94c9bd60960f69b2bd, type: 2}
+--- !u!114 &939345181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939345178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c2c4ad1bd5129641a9864a1d55c671d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &941145746
 GameObject:
   m_ObjectHideFlags: 0
@@ -1402,7 +1429,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1101253082
 RectTransform:
   m_ObjectHideFlags: 0

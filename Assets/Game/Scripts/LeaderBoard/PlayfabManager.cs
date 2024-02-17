@@ -5,7 +5,7 @@ using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
 
-public class PlayfabManager : MonoBehaviour
+public class PlayfabManager : GenericSingleton<PlayfabManager>
 {
     private void Start()
     {
@@ -16,7 +16,8 @@ public class PlayfabManager : MonoBehaviour
     {
         var request = new LoginWithCustomIDRequest
         {
-            CustomId = SystemInfo.deviceUniqueIdentifier,
+            // Generate a new unique ID every time
+            CustomId = Guid.NewGuid().ToString(),
             CreateAccount = true
         };
         PlayFabClientAPI.LoginWithCustomID(request, OnSuccess, OnFailure);
@@ -32,32 +33,12 @@ public class PlayfabManager : MonoBehaviour
         Debug.LogWarning("Error: " + error.GenerateErrorReport());
     }
     
-    public void SendLeaderboard(int score)
-    {
-        var request = new UpdatePlayerStatisticsRequest
-        {
-            Statistics = new List<StatisticUpdate>
-            {
-                new StatisticUpdate
-                {
-                    StatisticName = "HighScore",
-                    Value = score
-                }
-            }
-        };
-        PlayFabClientAPI.UpdatePlayerStatistics(request, OnLeaderboardUpdate, OnFailure);
-    }
-    
-    void OnLeaderboardUpdate(UpdatePlayerStatisticsResult result)
-    {
-        Debug.Log("Successful leaderboard sent!");
-    }
     
     public void GetLeaderboard()
     {
         var request = new GetLeaderboardRequest
         {
-            StatisticName = "HighScore",
+            StatisticName = "PlayerHighScore",
             StartPosition = 0,
             MaxResultsCount = 10
         };
@@ -68,7 +49,8 @@ public class PlayfabManager : MonoBehaviour
     {
         foreach (var player in result.Leaderboard)
         {
-            Debug.Log(player.Position + " - " + player.DisplayName + ": " + player.StatValue);
+            Debug.Log("Position: " + player.Position + ", Score: " + player.StatValue + ", PlayFab ID: " + player.PlayFabId);
         }
     }
+
 }
