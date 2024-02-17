@@ -4,6 +4,7 @@ using UnityEngine;
 public class CountDownTimer : MonoBehaviour
 {
     [SerializeField] private float maxTime = 10f;
+    [SerializeField] private VoidEventChannelSO gameOver;
     private TextMeshProUGUI timeText;
 
     private void Start()
@@ -17,8 +18,9 @@ public class CountDownTimer : MonoBehaviour
         timeText.text = maxTime.ToString("F0");
         if (maxTime <= 0)
         {
+            gameOver.RaiseEvent();
             maxTime = 0;
-            timeText.text = "0";
+            gameObject.SetActive(false);
         }
     }
 }

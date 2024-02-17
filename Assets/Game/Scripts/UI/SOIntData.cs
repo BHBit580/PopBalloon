@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "SoIntData")]
+[CreateAssetMenu(menuName = "ScriptableObject/SoIntData")]
 public class SOIntData : ScriptableObject
 {
     public int data;
