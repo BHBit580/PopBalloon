@@ -1,17 +1,18 @@
+using System;
 using UnityEngine;
 
 public class InputName : MonoBehaviour
 {
-    private string playerNameInput;
+    [SerializeField] private StringDataSO playerName;
 
-    public string GetPlayerName()
+    private void Start()
     {
-        return playerNameInput;
+        playerName.data = "Player";
     }
-    
+
     public void OnEnteringTheName(string name)
     {
-        playerNameInput = name;
-        Debug.Log(playerNameInput);
+        playerName.data = name;
+        Debug.Log(playerName.data);
     }
 }

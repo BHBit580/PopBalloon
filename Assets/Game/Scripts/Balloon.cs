@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 
 public class Balloon : MonoBehaviour, IPointerDownHandler
 {
-    [SerializeField] private SOIntData playerScore;
+    [SerializeField] private IntDataSO playerScore;
     [SerializeField] private float speed = 2f;
     [SerializeField] private float maxYRange = 10f;
     [SerializeField] private float destroyAnimationSpeed = 2.5f;

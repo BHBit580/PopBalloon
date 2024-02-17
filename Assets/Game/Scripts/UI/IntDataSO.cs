@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/SoIntData")]
-public class SOIntData : ScriptableObject
+public class IntDataSO : ScriptableObject
 {
     public int data;
 }

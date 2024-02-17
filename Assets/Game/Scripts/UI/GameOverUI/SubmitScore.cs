@@ -5,12 +5,13 @@ using PlayFab.ClientModels;
 
 public class SubmitScore : MonoBehaviour
 {
-    [SerializeField] private InputName inputName;
-    [SerializeField] private SOIntData playerScore;
+    [SerializeField] private StringDataSO playerName;
+    [SerializeField] private IntDataSO playerScore;
+    [SerializeField] private LeaderBoardManager leaderBoardManager;
     
     public void OnSubmitScore()
     {
-        if (string.IsNullOrEmpty(inputName.GetPlayerName())) 
+        if (string.IsNullOrEmpty(playerName.data))
         {
             Debug.Log("No name entered!");
             return;
@@ -37,8 +38,25 @@ public class SubmitScore : MonoBehaviour
     
     void OnLeaderboardUpdate(UpdatePlayerStatisticsResult result)
     {
-        PlayfabManager.Instance.GetLeaderboard();
         Debug.Log("Successful leaderboard sent!");
+        GetLeaderboard();
+    }
+    
+    
+    public void GetLeaderboard()
+    {
+        var request = new GetLeaderboardRequest
+        {
+            StatisticName = "PlayerHighScore",
+            StartPosition = 0,
+            MaxResultsCount = 10
+        };
+        PlayFabClientAPI.GetLeaderboard(request, OnLeaderboardGet, OnFailure);
+    }
+    
+    void OnLeaderboardGet(GetLeaderboardResult result)
+    {
+        leaderBoardManager.ShowLeaderboard(result);
     }
     
     void OnFailure(PlayFabError error)

@@ -32,25 +32,4 @@ public class PlayfabManager : GenericSingleton<PlayfabManager>
     {
         Debug.LogWarning("Error: " + error.GenerateErrorReport());
     }
-    
-    
-    public void GetLeaderboard()
-    {
-        var request = new GetLeaderboardRequest
-        {
-            StatisticName = "PlayerHighScore",
-            StartPosition = 0,
-            MaxResultsCount = 10
-        };
-        PlayFabClientAPI.GetLeaderboard(request, OnLeaderboardGet, OnFailure);
-    }
-    
-    void OnLeaderboardGet(GetLeaderboardResult result)
-    {
-        foreach (var player in result.Leaderboard)
-        {
-            Debug.Log("Position: " + player.Position + ", Score: " + player.StatValue + ", PlayFab ID: " + player.PlayFabId);
-        }
-    }
-
 }
