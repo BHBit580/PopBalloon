@@ -21,11 +21,7 @@ public class PythonExample : MonoBehaviour {
         dynamic py = engine.ExecuteFile(Application.dataPath + "/Game/Scripts/Python/greeter.py");
         dynamic greeter = py.Greeter("Mika");
         Debug.Log(greeter.greet());
-        Debug.Log(greeter.random_number(1,5));
     }
 
-    // Update is called once per frame
-    void Update () {
-		
-	}
+    
 }

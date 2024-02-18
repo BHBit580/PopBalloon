@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using IronPython.Hosting;
 using UnityEngine;
 
 public class BalloonSpawner : MonoBehaviour
@@ -7,31 +8,37 @@ public class BalloonSpawner : MonoBehaviour
     [SerializeField] private GameObject[] balloonPrefabs;
     [SerializeField] private GameObject leftBound;
     [SerializeField] private GameObject rightBound;
-    [SerializeField] private float spawnIntervalMin = 2f;
-    [SerializeField] private float spawnIntervalMax = 5f;
-    [SerializeField] private int minBalloonsPerSpawn = 1;
-    [SerializeField] private int maxBalloonsPerSpawn = 3;
-    [SerializeField] private float minDistanceBetweenBalloons = 1.0f;
 
+    
+    [SerializeField] private float spawnInterval = 2f;
+    [SerializeField] private int balloonsPerSpawn = 3;
+    [SerializeField] private float minDistanceBetweenBalloons = 1.0f;
+    
+    [HideInInspector]
+    public List<GameObject> balloonsList = new();
+    
     private float nextSpawnTime;
-    public List<GameObject> balloonsList = new List<GameObject>();
-    private Transform balloonsParent; 
+    private Transform balloonsParent;
+    private dynamic difficultyAdjuster;
+    
     private void Start()
     {
-        // Set the initial spawn time
-        nextSpawnTime = Time.time + Random.Range(spawnIntervalMin, spawnIntervalMax);
+        InitialisePythonCode();
+        nextSpawnTime = Time.time + spawnInterval;
         balloonsParent = new GameObject("Balloons").transform;
     }
 
     private void Update()
     {
-        // Check if it's time to spawn balloons
         if (Time.time >= nextSpawnTime)
         {
+            balloonsPerSpawn = difficultyAdjuster.randomBalloonSpawn();
+            
             // Determine the number of balloons to spawn
-            int balloonsToSpawn = Random.Range(minBalloonsPerSpawn, maxBalloonsPerSpawn + 1);
+            int balloonsToSpawn = balloonsPerSpawn;
 
-            for (int i = 0; i < balloonsToSpawn; i++)
+            int spawnedBalloons = 0;
+            while (spawnedBalloons < balloonsToSpawn)
             {
                 // Spawn a balloon at a random position between left and right bounds
                 Vector3 spawnPosition = GetRandomBalloonPosition();
@@ -39,17 +46,18 @@ public class BalloonSpawner : MonoBehaviour
                 // Ensure the new balloon is not too close to existing balloons
                 bool isValidSpawn = !CheckOverlapping(spawnPosition);
 
-                // If the spawn position is valid, instantiate the balloon
+                // If the spawn position is valid, instantiate the bal loon
                 if (isValidSpawn)
                 {
                     GameObject balloon = Instantiate(balloonPrefabs[Random.Range(0 , balloonPrefabs.Length)], spawnPosition, Quaternion.identity);
+                    balloon.GetComponent<Balloon>().speed = difficultyAdjuster.randomBalloonSpeed();
                     balloon.transform.SetParent(balloonsParent);
                     balloonsList.Add(balloon);
+                    spawnedBalloons++;
                 }
             }
-
-            // Set the next spawn time within the interval
-            nextSpawnTime = Time.time + Random.Range(spawnIntervalMin, spawnIntervalMax);
+            
+            nextSpawnTime = Time.time + spawnInterval;
         }
     }
 
@@ -72,4 +80,21 @@ public class BalloonSpawner : MonoBehaviour
         }
         return false;
     }
+
+    private void InitialisePythonCode()
+    {
+        var engine = Python.CreateEngine();
+
+        ICollection<string> searchPaths = engine.GetSearchPaths();
+    
+        //Path to the folder of greeter.py
+        searchPaths.Add(Application.dataPath);
+        //Path to the Python standard library
+        searchPaths.Add(Application.dataPath + @"\Plugins\Lib\");
+        engine.SetSearchPaths(searchPaths);
+
+        dynamic py = engine.ExecuteFile(Application.dataPath + "/Game/Scripts/Python/DifficultyAdjuster.py");
+        difficultyAdjuster = py.DifficultyAdjuster();
+    }
+
 }

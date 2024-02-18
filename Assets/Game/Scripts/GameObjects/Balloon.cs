@@ -6,9 +6,11 @@ using UnityEngine.Serialization;
 public class Balloon : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] private IntDataSO playerScore;
-    [SerializeField] private float speed = 2f;
     [SerializeField] private float maxYRange = 10f;
     [SerializeField] private float destroyAnimationSpeed = 2.5f;
+    
+    public double speed = 2f;
+    
     private Animator animator;
     private BalloonSpawner balloonSpawner;
 
@@ -24,7 +26,7 @@ public class Balloon : MonoBehaviour, IPointerDownHandler
 
     private void Update()
     {
-        transform.Translate(Vector3.up * (speed * Time.deltaTime));
+        transform.Translate(Vector3.up * ((float)speed * Time.deltaTime));
         
         if (transform.position.y > maxYRange) DestroyBalloon();
     }
