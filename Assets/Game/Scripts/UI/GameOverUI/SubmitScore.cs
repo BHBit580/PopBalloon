@@ -5,22 +5,10 @@ using PlayFab.ClientModels;
 
 public class SubmitScore : MonoBehaviour
 {
-    [SerializeField] private StringDataSO playerName;
     [SerializeField] private IntDataSO playerScore;
     [SerializeField] private LeaderBoardManager leaderBoardManager;
     
     public void OnSubmitScore()
-    {
-        if (string.IsNullOrEmpty(playerName.data))
-        {
-            Debug.Log("No name entered!");
-            return;
-        }
-     
-        SendLeaderboard(playerScore.data);
-    }
-    
-    private void SendLeaderboard(int score)
     {
         var request = new UpdatePlayerStatisticsRequest
         {
@@ -29,7 +17,7 @@ public class SubmitScore : MonoBehaviour
                 new StatisticUpdate
                 {
                     StatisticName = "PlayerHighScore",
-                    Value = score
+                    Value = playerScore.data
                 }
             }
         };
@@ -38,23 +26,18 @@ public class SubmitScore : MonoBehaviour
     
     void OnLeaderboardUpdate(UpdatePlayerStatisticsResult result)
     {
-        Debug.Log("Successful leaderboard sent!");
-        GetLeaderboard();
-    }
-    
-    
-    public void GetLeaderboard()
-    {
+        Debug.Log("Successfully data sent to leaderBoard!");
+
         var request = new GetLeaderboardRequest
         {
             StatisticName = "PlayerHighScore",
             StartPosition = 0,
             MaxResultsCount = 10
         };
-        PlayFabClientAPI.GetLeaderboard(request, OnLeaderboardGet, OnFailure);
+        PlayFabClientAPI.GetLeaderboard(request, GetDataFromLeaderBoard, OnFailure);
     }
     
-    void OnLeaderboardGet(GetLeaderboardResult result)
+    void GetDataFromLeaderBoard(GetLeaderboardResult result)
     {
         leaderBoardManager.ShowLeaderboard(result);
     }
@@ -63,5 +46,4 @@ public class SubmitScore : MonoBehaviour
     {
         Debug.LogWarning("Error: " + error.GenerateErrorReport());
     }
-
 }
