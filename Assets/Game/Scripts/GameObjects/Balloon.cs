@@ -16,10 +16,6 @@ public class Balloon : MonoBehaviour, IPointerDownHandler
     private void Start()
     {
         animator = GetComponent<Animator>();
-        AnimationEvent animationEvent = new AnimationEvent(); 
-        animationEvent.functionName = "OnDestroyAnimationComplete";
-        animationEvent.time = animator.GetCurrentAnimatorStateInfo(0).length; 
-        animator.runtimeAnimatorController.animationClips[0].AddEvent(animationEvent);
     }
 
     private void Update()
@@ -36,10 +32,7 @@ public class Balloon : MonoBehaviour, IPointerDownHandler
         animator.SetBool("Destroy", true);
     }
     
-    private void OnDestroyAnimationComplete()
-    {
-        DestroyBalloon();
-    }
+    
     
     private void DestroyBalloon()
     {

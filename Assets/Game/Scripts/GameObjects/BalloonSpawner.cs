@@ -21,8 +21,11 @@ public class BalloonSpawner : MonoBehaviour
     private Transform balloonsParent;
     private dynamic difficultyAdjuster;
 
-    private void OnEnable() => gameOver.RegisterListener(TurnOffSpawning);
-
+    private void Awake()
+    {
+        gameOver.RegisterListener(TurnOffSpawning);
+    }
+    
     private void Start()
     {
         InitialisePythonCode();
@@ -34,7 +37,7 @@ public class BalloonSpawner : MonoBehaviour
     {
         if (Time.time >= nextSpawnTime)
         {
-            balloonsPerSpawn = difficultyAdjuster.getBalloonSpawn();
+            balloonsPerSpawn = (int)difficultyAdjuster.getBalloonSpawn();
             
             
             int spawnedBalloons = 0;

@@ -731,6 +731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03cd0db4bbd9e1441854fdc1d09572f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startGameEvent: {fileID: 11400000, guid: 204570eb093833f4a9585ba01ac5877a, type: 2}
   playerName: {fileID: 11400000, guid: 89ba539fe9819d4488d1ad099d440e1d, type: 2}
   nameInputField: {fileID: 1691034262}
   loadingTitle: {fileID: 1822795718}
@@ -1468,6 +1469,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1822795718}
   m_CullTransparentMesh: 1
+--- !u!1 &1966772781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1966772783}
+  - component: {fileID: 1966772782}
+  m_Layer: 0
+  m_Name: LoginManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1966772782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966772781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d85dea9bbb4742b40b5a9a504b494792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startGameEvent: {fileID: 11400000, guid: 204570eb093833f4a9585ba01ac5877a, type: 2}
+  playerName: {fileID: 11400000, guid: 89ba539fe9819d4488d1ad099d440e1d, type: 2}
+--- !u!4 &1966772783
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966772781}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 649.5021, y: 933.46515, z: -22.280792}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2070677158
 GameObject:
   m_ObjectHideFlags: 0
@@ -1567,3 +1614,4 @@ SceneRoots:
   - {fileID: 2070677161}
   - {fileID: 1030734245}
   - {fileID: 656208387}
+  - {fileID: 1966772783}

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -6,6 +7,7 @@ using PlayFab.ClientModels;
 public class SubmitScore : MonoBehaviour
 {
     [SerializeField] private IntDataSO playerScore;
+    [SerializeField] private VoidEventChannelSO showLeaderBoard;
     [SerializeField] private GameObject leaderBoardUI;
     [SerializeField] private GameObject[] uiGameObjectsToDisable;
     
@@ -30,25 +32,9 @@ public class SubmitScore : MonoBehaviour
     void OnLeaderboardUpdate(UpdatePlayerStatisticsResult result)
     {
         Debug.Log("Successfully data sent to leaderBoard!");
-
-        var request = new GetLeaderboardRequest
-        {
-            StatisticName = "PlayerHighScore",
-            StartPosition = 0,
-            MaxResultsCount = 10
-        };
-        PlayFabClientAPI.GetLeaderboard(request, GetDataFromLeaderBoard, OnFailure);
+        showLeaderBoard.RaiseEvent();
     }
     
-    void GetDataFromLeaderBoard(GetLeaderboardResult result)
-    {
-        leaderBoardUI.GetComponent<LeaderBoardManager>().ShowLeaderboard(result);
-    }
-    
-    void OnFailure(PlayFabError error)
-    {
-        Debug.LogWarning("Error: " + error.GenerateErrorReport());
-    }
     
     void DisableGameObjects()
     {
@@ -56,6 +42,11 @@ public class SubmitScore : MonoBehaviour
         {
             obj.SetActive(false);
         }
+    }
+    
+    void OnFailure(PlayFabError error)
+    {
+        Debug.LogWarning("Error: " + error.GenerateErrorReport());
     }
     
 }

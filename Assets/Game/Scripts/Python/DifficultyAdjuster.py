@@ -2,6 +2,7 @@ import time
 import random
 
 class DifficultyAdjuster:
+
     minBalloonPerSpawn = 1
     maxBalloonPerSpawn = 5
 
@@ -10,29 +11,25 @@ class DifficultyAdjuster:
 
     def __init__(self):
         self.last_time = time.time()
-        self.last_values = self.generate_values()
 
-    def generate_values(self):
-        return random.randrange(DifficultyAdjuster.minBalloonPerSpawn, DifficultyAdjuster.maxBalloonPerSpawn)
 
     def getBalloonSpawn(self):
         current_time = time.time()
-        if current_time - self.last_time < 3:
-            # If less than 3 seconds have passed, return the last values
-            return self.last_values
-        else:
-            # Otherwise, generate new values and update the last values and time
+        if current_time - self.last_time >= 3:
+            # If 3 or more seconds have passed, increase the minimum number of balloons to spawn
             DifficultyAdjuster.minBalloonPerSpawn = min(DifficultyAdjuster.minBalloonPerSpawn + 1, DifficultyAdjuster.maxBalloonPerSpawn)
-            self.last_values = self.generate_values()
             self.last_time = current_time
-            return self.last_values
+
+        if(DifficultyAdjuster.minBalloonPerSpawn == DifficultyAdjuster.maxBalloonPerSpawn): return DifficultyAdjuster.maxBalloonPerSpawn
+        return random.randrange(DifficultyAdjuster.minBalloonPerSpawn, DifficultyAdjuster.maxBalloonPerSpawn)
+
 
     def balloonSpeed(self):                                
         current_time = time.time()
-        if current_time - self.last_time < 3:
-            return random.uniform(DifficultyAdjuster.minSpeed , DifficultyAdjuster.maxSpeed)
-        else:
+        if current_time - self.last_time >= 3:
             DifficultyAdjuster.minSpeed = min(DifficultyAdjuster.minSpeed + 0.5, DifficultyAdjuster.maxSpeed)
             DifficultyAdjuster.maxSpeed = min(DifficultyAdjuster.maxSpeed + 1, 10)  # Assuming 10 as the maximum speed limit
             self.last_time = current_time
-            return random.uniform(DifficultyAdjuster.minSpeed , DifficultyAdjuster.maxSpeed)
+        
+        if(DifficultyAdjuster.minSpeed == DifficultyAdjuster.maxSpeed): return DifficultyAdjuster.maxSpeed
+        return random.uniform(DifficultyAdjuster.minSpeed , DifficultyAdjuster.maxSpeed)
