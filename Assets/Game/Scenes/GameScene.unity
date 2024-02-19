@@ -885,7 +885,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &481527697
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1084,7 +1084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d7122bb5ea9b1468344fb6bb7618c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTime: 10
+  maxTime: 15
   gameOver: {fileID: 11400000, guid: 480e3eb1ff120f94c9bd60960f69b2bd, type: 2}
 --- !u!114 &595591251
 MonoBehaviour:
@@ -1228,7 +1228,7 @@ GameObject:
   - component: {fileID: 820338934}
   - component: {fileID: 820338933}
   m_Layer: 5
-  m_Name: TimeTitle
+  m_Name: CountDownTimeTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1530,6 +1530,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerScore: {fileID: 11400000, guid: e3de8bb8a496b3648b9f98c721933533, type: 2}
   leaderBoardUI: {fileID: 481527696}
+  uiGameObjectsToDisable:
+  - {fileID: 940455099}
+  - {fileID: 339290439}
+  - {fileID: 877807799}
 --- !u!1 &925057727
 GameObject:
   m_ObjectHideFlags: 0
@@ -2285,8 +2289,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7.5406, y: 38.0168}
-  m_SizeDelta: {x: 963.0849, y: 1285.5435}
+  m_AnchoredPosition: {x: -7.5406, y: -27.993393}
+  m_SizeDelta: {x: 963.0849, y: 1417.564}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1274866929
 MonoBehaviour:
@@ -2540,7 +2544,7 @@ Transform:
   m_GameObject: {fileID: 1721190651}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.09, y: 0.17, z: 2}
+  m_LocalPosition: {x: 0.09, y: 0.17, z: 10}
   m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

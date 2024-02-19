@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using IronPython.Hosting;
+using IronPython.Runtime;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -33,7 +34,8 @@ public class BalloonSpawner : MonoBehaviour
     {
         if (Time.time >= nextSpawnTime)
         {
-            balloonsPerSpawn = difficultyAdjuster.randomBalloonSpawn();
+            balloonsPerSpawn = difficultyAdjuster.getBalloonSpawn();
+            
             
             int spawnedBalloons = 0;
             while (spawnedBalloons < balloonsPerSpawn)
@@ -41,7 +43,7 @@ public class BalloonSpawner : MonoBehaviour
                 // Spawn a balloon at a random position between left and right bounds
                 Vector3 spawnPosition = GetRandomBalloonPosition();
                 GameObject balloon = Instantiate(balloonPrefabs[Random.Range(0 , balloonPrefabs.Length)], spawnPosition, Quaternion.identity);
-                balloon.GetComponent<Balloon>().speed = difficultyAdjuster.randomBalloonSpeed();
+                balloon.GetComponent<Balloon>().speed = difficultyAdjuster.balloonSpeed();
                 balloon.transform.SetParent(balloonsParent);
                 spawnedBalloons++;
             }
@@ -71,7 +73,6 @@ public class BalloonSpawner : MonoBehaviour
 
         dynamic py = engine.ExecuteFile(Application.dataPath + "/Game/Scripts/Python/DifficultyAdjuster.py");
         difficultyAdjuster = py.DifficultyAdjuster();
-        Debug.Log(difficultyAdjuster.drint());
     }
     
     private void TurnOffSpawning() => gameObject.SetActive(false);

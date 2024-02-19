@@ -7,6 +7,7 @@ public class SubmitScore : MonoBehaviour
 {
     [SerializeField] private IntDataSO playerScore;
     [SerializeField] private GameObject leaderBoardUI;
+    [SerializeField] private GameObject[] uiGameObjectsToDisable;
     
     public void OnSubmitScore()
     {
@@ -23,6 +24,7 @@ public class SubmitScore : MonoBehaviour
             }
         };
         PlayFabClientAPI.UpdatePlayerStatistics(request, OnLeaderboardUpdate, OnFailure);
+        DisableGameObjects();
     }
     
     void OnLeaderboardUpdate(UpdatePlayerStatisticsResult result)
@@ -47,4 +49,13 @@ public class SubmitScore : MonoBehaviour
     {
         Debug.LogWarning("Error: " + error.GenerateErrorReport());
     }
+    
+    void DisableGameObjects()
+    {
+        foreach (var obj in uiGameObjectsToDisable)
+        {
+            obj.SetActive(false);
+        }
+    }
+    
 }

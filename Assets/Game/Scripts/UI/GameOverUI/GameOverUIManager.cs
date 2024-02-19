@@ -19,17 +19,20 @@ public class GameOverUIManager : MonoBehaviour
 
     private void SetActiveAllChildren()
     {
-        EnableAllChildrenRecursive(transform, true);
+        foreach (Transform child in transform)
+        {
+            if (child.gameObject.name != "LeaderBoardUI")
+            {
+                child.gameObject.SetActive(true);
+            }
+        }
     }
     
     private void EnableAllChildrenRecursive(Transform parent, bool value)
     {
         foreach (Transform child in parent)
         {
-            if (child.gameObject.name != "LeaderBoardUI")
-            {
-                child.gameObject.SetActive(value);
-            }
+            child.gameObject.SetActive(value);
         }
     }
     
