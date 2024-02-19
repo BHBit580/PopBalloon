@@ -6,10 +6,11 @@ using PlayFab.ClientModels;
 public class SubmitScore : MonoBehaviour
 {
     [SerializeField] private IntDataSO playerScore;
-    [SerializeField] private LeaderBoardManager leaderBoardManager;
+    [SerializeField] private GameObject leaderBoardUI;
     
     public void OnSubmitScore()
     {
+        leaderBoardUI.SetActive(true);
         var request = new UpdatePlayerStatisticsRequest
         {
             Statistics = new List<StatisticUpdate>
@@ -39,7 +40,7 @@ public class SubmitScore : MonoBehaviour
     
     void GetDataFromLeaderBoard(GetLeaderboardResult result)
     {
-        leaderBoardManager.ShowLeaderboard(result);
+        leaderBoardUI.GetComponent<LeaderBoardManager>().ShowLeaderboard(result);
     }
     
     void OnFailure(PlayFabError error)

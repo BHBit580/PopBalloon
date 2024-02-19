@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameOverUIManager : MonoBehaviour
 {
     [SerializeField] private VoidEventChannelSO gameOver;
+    
     private void Awake()
     {
         gameOver.RegisterListener(SetActiveAllChildren);
@@ -23,14 +24,14 @@ public class GameOverUIManager : MonoBehaviour
     
     private void EnableAllChildrenRecursive(Transform parent, bool value)
     {
-        for (int i = 0; i < parent.childCount; i++)
+        foreach (Transform child in parent)
         {
-            Transform child = parent.GetChild(i);
-            EnableAllChildrenRecursive(child, value);
-            if (child.gameObject != null) child.gameObject.SetActive(value);
+            if (child.gameObject.name != "LeaderBoardUI")
+            {
+                child.gameObject.SetActive(value);
+            }
         }
     }
-
     
     private void OnDisable()
     {

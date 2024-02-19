@@ -10,3 +10,5 @@ class DifficultyAdjuster:
         
     def randomBalloonSpeed(self):
         return random.uniform(0.5 , 3)
+    def drint(self):
+        return 100

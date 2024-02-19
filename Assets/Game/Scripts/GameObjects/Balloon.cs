@@ -12,12 +12,10 @@ public class Balloon : MonoBehaviour, IPointerDownHandler
     public double speed = 2f;
     
     private Animator animator;
-    private BalloonSpawner balloonSpawner;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
-        balloonSpawner = FindObjectOfType<BalloonSpawner>();
         AnimationEvent animationEvent = new AnimationEvent(); 
         animationEvent.functionName = "OnDestroyAnimationComplete";
         animationEvent.time = animator.GetCurrentAnimatorStateInfo(0).length; 
@@ -45,7 +43,6 @@ public class Balloon : MonoBehaviour, IPointerDownHandler
     
     private void DestroyBalloon()
     {
-        balloonSpawner.balloonsList.Remove(gameObject);
         Destroy(gameObject);
     }
 }
