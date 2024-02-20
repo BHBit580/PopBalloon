@@ -1,16 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameOverUIManager : MonoBehaviour
 {
     [SerializeField] private VoidEventChannelSO gameOver;
+    [SerializeField] private float animationTime = 0.5f;
     
     private void Awake()
     {
         gameOver.RegisterListener(SetActiveAllChildren);
+        gameOver.RegisterListener(GameOverAnimation);
     }
 
     private void Start()
@@ -22,10 +22,7 @@ public class GameOverUIManager : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
-            if (child.gameObject.name != "LeaderBoardUI")
-            {
-                child.gameObject.SetActive(true);
-            }
+            child.gameObject.SetActive(true);
         }
     }
     
@@ -36,6 +33,12 @@ public class GameOverUIManager : MonoBehaviour
             child.gameObject.SetActive(value);
         }
     }
+
+    private void GameOverAnimation()
+    {
+        GetComponent<RectTransform>().localScale = Vector3.zero;
+        GetComponent<RectTransform>().DOScale(1, animationTime);
+    }
     
     public void OnCLickRetryButton()
     {
@@ -45,5 +48,6 @@ public class GameOverUIManager : MonoBehaviour
     private void OnDisable()
     {
         gameOver.UnregisterListener(SetActiveAllChildren);
+        gameOver.UnregisterListener(GameOverAnimation);
     }
 }

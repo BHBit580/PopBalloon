@@ -50,7 +50,8 @@ public class BalloonSpawner : MonoBehaviour
                 balloon.transform.SetParent(balloonsParent);
                 spawnedBalloons++;
             }
-            
+
+            spawnInterval = (float)difficultyAdjuster.spawnRate();
             nextSpawnTime = Time.time + spawnInterval;
         }
     }

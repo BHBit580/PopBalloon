@@ -926,6 +926,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showLeaderBoard: {fileID: 11400000, guid: 595295ee67e1f5c428da0f05bd5fc459, type: 2}
   loadingText: {fileID: 1088063051}
+  retryButton: {fileID: 864439454}
   rowTemplate: {fileID: 2864670637922543780, guid: 2cf64d1d6125f334e9099faf40a49a95, type: 3}
   distanceBetweenRows: 125
   firstRowRectPosition: {x: 7, y: -157}
@@ -1091,7 +1092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d7122bb5ea9b1468344fb6bb7618c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTime: 25
+  maxTime: 30
   gameOver: {fileID: 11400000, guid: 480e3eb1ff120f94c9bd60960f69b2bd, type: 2}
 --- !u!114 &595591251
 MonoBehaviour:
@@ -1441,7 +1442,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93a30bf953b3a8d478226c01751b74e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leaderBoardDataShown: {fileID: 11400000, guid: cdf54034d1a1e554999a14b4d699f858, type: 2}
 --- !u!1 &874721541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1830,6 +1830,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOver: {fileID: 11400000, guid: 480e3eb1ff120f94c9bd60960f69b2bd, type: 2}
+  animationTime: 0.5
 --- !u!1 &940455099
 GameObject:
   m_ObjectHideFlags: 0
