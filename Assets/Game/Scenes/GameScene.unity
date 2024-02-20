@@ -927,7 +927,7 @@ MonoBehaviour:
   showLeaderBoard: {fileID: 11400000, guid: 595295ee67e1f5c428da0f05bd5fc459, type: 2}
   loadingText: {fileID: 1088063051}
   rowTemplate: {fileID: 2864670637922543780, guid: 2cf64d1d6125f334e9099faf40a49a95, type: 3}
-  distanceBetweenRows: 150
+  distanceBetweenRows: 125
   firstRowRectPosition: {x: 7, y: -157}
   leaderBoardPositionX: 0
   animationTime: 0.25
